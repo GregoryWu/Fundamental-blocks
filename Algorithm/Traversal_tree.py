@@ -52,7 +52,7 @@ class BinaryTree(object):
             traversal += (str(start.value) + "-")
             traversal = self.preorder_search(start.left, traversal)
             traversal = self.preorder_search(start.right, traversal)
-        print(traversal)
+            
         return traversal
 
     def inorder_search(self, start, traversal=str):
@@ -118,6 +118,8 @@ class BinaryTree(object):
    2   3
   / \
  4   5
+    /
+   6
   
 '''
 

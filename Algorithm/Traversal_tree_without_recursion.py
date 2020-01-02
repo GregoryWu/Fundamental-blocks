@@ -248,7 +248,7 @@ def postorder_MorrisTraversal(root):
         else:
             # find leftmost of the right sub-tree
             pre = current.right
-            while (pre.left) and (pre.left != current):
+            while pre.left is not None and pre.left != current:
                 pre = pre.left
                 
                 

@@ -253,14 +253,15 @@ def postorder_MorrisTraversal(root):
                 
                 
             # and create a link from this to current
-            if not pre.left:
+            if pre.left:
+                pre.left = None
+                current = current.left
+
+                
+            else:
                 post_order_list.insert(0, current.value)
                 pre.left = current
                 current = current.right
-                
-            else:
-                pre.left = None
-                current = current.left
                 
     return '-'.join(map(str, post_order_list))
 

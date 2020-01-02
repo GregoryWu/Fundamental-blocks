@@ -43,43 +43,6 @@ def inorder_search(root):
         
     return re.sub('-$','',traversal)
     
-## TODO
-def inorder_MorrisTraversal(root): 
-    '''left->root->right'''
-    
-    # Set current to root of binary tree 
-    current = root  
-      
-    traversal = ''
-    
-    while(current is not None): 
-          
-        if current.left is None: 
-            
-            traversal += str(current.value) + '-'
-            
-            current = current.right 
-        else: 
-            # Find the inorder predecessor of current 
-            pre = current.left 
-            
-            while(pre.right is not None and pre.right != current): 
-                pre = pre.right 
-   
-            # Make current as right child of its inorder predecessor 
-            if(pre.right is None): 
-                pre.right = current 
-                current = current.left 
-                  
-            # Revert the changes made in if part to restore the  
-            # original tree i.e., fix the right child of predecessor 
-            else: 
-                pre.right = None
-                
-                traversal += str(current.value) + '-'
-            
-                current = current.right 
-    return re.sub('-$','',traversal)
 
 
 
@@ -118,6 +81,7 @@ def postorder_search_1_stack(root):
     
     stack = []
     ans = []
+
     
     while True:
         
@@ -182,42 +146,124 @@ def preorder_search_1_stack(root):
     return re.sub('-$','',traversal)
 
 
-## TODO:
+
+
+
+def inorder_MorrisTraversal(root): 
+    '''left->root->right'''
+    
+    # Set current to root of binary tree 
+    current = root  
+      
+    traversal = ''
+    
+    while current: 
+          
+        if current.left is None: 
+            
+            traversal += str(current.value) + '-'
+            
+            current = current.right 
+            
+            
+        else: 
+            # Find the inorder predecessor of current 
+            pre = current.left 
+            
+            
+            # Make current as the right child of the rightmost 
+            # node in current's left subtree
+            while pre.right is not None and pre.right != current: 
+                pre = pre.right 
+   
+
+            if pre.right is not None: 
+                
+                pre.right = None
+                traversal += str(current.value) + '-'
+                current = current.right 
+                  
+            else: 
+                pre.right = current 
+                current = current.left 
+
+    return re.sub('-$','',traversal)
+
+    
+
+
 def preorder_MorrisTraversal(root): 
-    curr = root 
+    '''root->left->right'''
+    
+    current = root 
   
-    while curr: 
-        # If left child is null, print the 
-        # current node value. And, update  
-        # the current pointer to right child. 
-        if curr.left is None: 
-            print(curr.value, end= " ") 
-            curr = curr.right 
+    traversal = ''
+    
+    while current: 
+
+        if current.left is None: 
+            
+            traversal += str(current.value) + '-'
+            current = current.right 
   
         else: 
-            # Find the inorder predecessor 
-            prev = curr.left 
+
+            pre = current.left 
   
-            while prev.right is not None and prev.right is not curr: 
-                prev = prev.right 
+    
+            # Make current as the right child of the rightmost 
+            # node in current's left subtree
+            while pre.right is not None and pre.right is not current: 
+                pre = pre.right 
   
-            # If the right child of inorder 
-            # predecessor already points to 
-            # the current node, update the  
-            # current with it's right child 
-            if prev.right is curr: 
-                prev.right = None
-                curr = curr.right 
+    
+    
+            if pre.right is current: 
+                pre.right = None
+                current = current.right 
                   
-            # else If right child doesn't point 
-            # to the current node, then print this 
-            # node's value and update the right child 
-            # pointer with the current node and update 
-            # the current with it's left child 
+
             else: 
-                print (curr.value, end=" ") 
-                prev.right = curr  
-                curr = curr.left 
+                traversal += str(current.value) + '-'
+                pre.right = current  
+                current = current.left 
+                
+    return re.sub('-$','',traversal)
+
+
+def postorder_MorrisTraversal(root):
+    '''left->right->root'''
+    
+    if not root:
+        return []
+    current = root
+    post_order_list = []
+    
+    while current:
+        
+        if not current.right:
+            post_order_list.insert(0, current.value)
+            current = current.left
+            
+        else:
+            # find leftmost of the right sub-tree
+            pre = current.right
+            while (pre.left) and (pre.left != current):
+                pre = pre.left
+                
+                
+            # and create a link from this to current
+            if not pre.left:
+                post_order_list.insert(0, current.value)
+                pre.left = current
+                current = current.right
+                
+            else:
+                pre.left = None
+                current = current.left
+                
+    return '-'.join(map(str, post_order_list))
+
 
 # Construct a binary tree
 '''
@@ -246,6 +292,10 @@ inorder_MorrisTraversal(root)
 # Postorder traversal
 postorder_search_2_stacks(root)
 postorder_search_1_stack(root)
+
+postorder_MorrisTraversal(root)
+
+
 
 # Preorder traversal 
 preorder_search_1_stack(root)

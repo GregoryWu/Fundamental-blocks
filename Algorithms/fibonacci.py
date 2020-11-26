@@ -52,7 +52,8 @@ for n in range(1,500):
 # T = O(N)
 
 def fib_bottom_up(n):
-    
+    if n ==0:
+        return 0
     if n == 1 or n == 2:
         return 1
     

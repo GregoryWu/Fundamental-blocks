@@ -57,7 +57,6 @@ def fib_bottom_up(n):
         return 1
     
     bottom_up = [None] * (n+1)
-    print(len(bottom_up))
     
     bottom_up[1] = 1 
     bottom_up[2] = 1 

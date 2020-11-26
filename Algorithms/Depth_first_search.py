@@ -15,7 +15,6 @@ def DFS_recursive(graph, node, path = []):
         path.append(node)
         for child in graph[node]:
             DFS_recursive(graph, child, path)
-
-    print(path)
+            print(path)
 
 DFS_recursive(graph, 'A')

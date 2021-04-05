@@ -71,7 +71,6 @@ class Support_Vector_Machine:
                         
                         if found_option:
                             opt_dict[np.linalg.norm(w_t)] = [w_t, b] # { ||w|| : [w,b]}
-                # why < 0 ???
                 if w[0] < 0:
                     optimized = True
                     print('Optimized a step.')
@@ -139,7 +138,7 @@ class Support_Vector_Machine:
 svm = Support_Vector_Machine()
 svm.fit(data=data_dict)
 
-predict_us = [[0,10],
+predict_data = [[0,10],
               [1,3],
               [3,4],
               [3,5],
@@ -148,7 +147,7 @@ predict_us = [[0,10],
               [6,-5],
               [5,8]]
 
-for p in predict_us:
+for p in predict_data:
     svm.predict(p)
 
 svm.visualize()
